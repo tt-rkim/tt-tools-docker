@@ -2,9 +2,9 @@
 
 ## Choices Made Based on Requirements
 
-### 1. Python venv Location
-- **Decision**: Created Python venv at `/opt/venv`
-- **Rationale**: The `/opt` directory is a standard location for optional/add-on software packages in Linux. This makes it accessible to all users and follows FHS (Filesystem Hierarchy Standard).
+### 1. Python venv Location and Activation
+- **Decision**: Created Python venv at `/opt/venv` and properly activated it by setting both `PATH` and `VIRTUAL_ENV` environment variables
+- **Rationale**: The `/opt` directory is a standard location for optional/add-on software packages in Linux. This makes it accessible to all users and follows FHS (Filesystem Hierarchy Standard). Setting `VIRTUAL_ENV` environment variable in addition to updating PATH ensures full venv activation, as many Python tools check this variable to determine if they're running in a virtual environment.
 
 ### 2. Rust Installation Method
 - **Decision**: Using Ubuntu's package manager (apt) to install Rust (rustc and cargo packages)

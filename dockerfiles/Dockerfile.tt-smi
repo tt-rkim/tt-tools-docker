@@ -21,7 +21,8 @@ RUN rustc --version && cargo --version
 # Create Python virtual environment in /opt
 RUN python3 -m venv /opt/venv
 
-# Activate venv by updating PATH
+# Activate venv by updating PATH and setting VIRTUAL_ENV
+ENV VIRTUAL_ENV="/opt/venv"
 ENV PATH="/opt/venv/bin:${PATH}"
 
 # Verify Python installation
