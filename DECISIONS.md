@@ -7,8 +7,8 @@
 - **Rationale**: The `/opt` directory is a standard location for optional/add-on software packages in Linux. This makes it accessible to all users and follows FHS (Filesystem Hierarchy Standard).
 
 ### 2. Rust Installation Method
-- **Decision**: Using rustup to install the latest stable Rust toolchain
-- **Rationale**: rustup is the official Rust toolchain installer and ensures we get the latest stable version with proper environment setup.
+- **Decision**: Using Ubuntu's package manager (apt) to install Rust (rustc and cargo packages)
+- **Rationale**: While rustup would provide the latest Rust version, the build environment has SSL certificate issues that prevent rustup from downloading. Using apt-installed Rust ensures a working installation. The version in Ubuntu 24.04's repositories (Rust 1.75+) is recent enough for most use cases. If the absolute latest Rust is required, rustup can be used when building in an environment with proper SSL certificates.
 
 ### 3. GitHub Actions Workflow Trigger
 - **Decision**: Workflow triggers on pull_request events for all branches
