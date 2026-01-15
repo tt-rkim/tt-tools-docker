@@ -19,8 +19,8 @@
 - **Rationale**: Native integration with GitHub Actions, no external credentials needed for public repos.
 
 ### 5. Docker Image Naming
-- **Decision**: Image name follows pattern `ghcr.io/<owner>/<repo>/tt-smi:latest`
-- **Rationale**: Standard convention for GHCR, allows for clear identification and versioning.
+- **Decision**: Image name follows pattern `ghcr.io/<owner>/<repo>/tt-smi-docker:latest`
+- **Rationale**: Standard convention for GHCR, allows for clear identification and versioning. Using `tt-smi-docker` to distinguish the Docker image from other tt-smi related artifacts.
 
 ### 6. Base Image Tag
 - **Decision**: Using `ubuntu:24.04` as the base image
