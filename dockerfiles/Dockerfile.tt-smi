@@ -29,11 +29,12 @@ ENV PATH="/opt/venv/bin:${PATH}"
 # Verify Python installation
 RUN python3 --version && which python3
 
-# Build argument for tt-smi version/branch
-ARG TT_SMI_VERSION
+# Build argument for tt-smi version/branch (defaults to main)
+ARG TT_SMI_VERSION=4.0.0-rc.2
 
-# Clone tt-smi repository at specified version
-RUN git clone --branch ${TT_SMI_VERSION} https://github.com/tenstorrent/tt-smi.git /opt/tt-smi
+# Create directory and clone tt-smi repository at specified version
+RUN mkdir -p /opt/tt-smi && \
+    git clone --branch ${TT_SMI_VERSION} https://github.com/tenstorrent/tt-smi.git /opt/tt-smi
 
 # Change working directory to tt-smi
 WORKDIR /opt/tt-smi
