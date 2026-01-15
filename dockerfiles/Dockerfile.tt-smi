@@ -1,0 +1,33 @@
+# Base image: Ubuntu 24.04
+FROM ubuntu:24.04
+
+# Set environment variables to prevent interactive prompts during installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update package list and install required dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    build-essential \
+    python3 \
+    python3-pip \
+    python3-venv \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Rust using rustup (latest stable version)
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Create Python virtual environment in /opt
+RUN python3 -m venv /opt/venv
+
+# Activate venv by updating PATH
+ENV PATH="/opt/venv/bin:${PATH}"
+
+# Verify installations
+RUN rustc --version && \
+    cargo --version && \
+    python3 --version && \
+    which python
+
+# Final CMD: list contents
+CMD ["ls", "-la", "/opt"]
