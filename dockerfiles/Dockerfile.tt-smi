@@ -25,7 +25,7 @@ RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:${PATH}"
 
 # Verify Python installation
-RUN python3 --version && which python
+RUN python3 --version && which python3
 
 # Final CMD: list contents
 CMD ["ls", "-la", "/opt"]
