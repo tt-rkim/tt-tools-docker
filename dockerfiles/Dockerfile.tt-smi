@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     python3-venv \
     rustc \
     cargo \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # Verify Rust installation
@@ -28,5 +29,21 @@ ENV PATH="/opt/venv/bin:${PATH}"
 # Verify Python installation
 RUN python3 --version && which python3
 
-# Final CMD: list contents
-CMD ["ls", "-la", "/opt"]
+# Build argument for tt-smi version/branch (defaults to main)
+ARG TT_SMI_VERSION=4.0.0-rc.2
+
+# Create directory and clone tt-smi repository at specified version
+RUN mkdir -p /opt/tt-smi && \
+    git clone --branch ${TT_SMI_VERSION} https://github.com/tenstorrent/tt-smi.git /opt/tt-smi
+
+# Change working directory to tt-smi
+WORKDIR /opt/tt-smi
+
+# Install tt-smi
+RUN pip install .
+
+# Verify tt-smi installation
+RUN tt-smi --version
+
+# Set tt-smi as the entrypoint
+ENTRYPOINT ["tt-smi"]
